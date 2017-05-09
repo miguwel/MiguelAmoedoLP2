@@ -23,20 +23,9 @@ namespace ConsoleApplication1
             {
                 pos = s[i];
 
-                if (pos == 'a' || pos == 'A')
+                if (pos == 'a' || pos == 'A' || pos == 'e' || pos == 'E' || pos == 'i' || pos == 'I' || pos == 'o' || pos == 'O' || pos == 'u' || pos == 'U')
                     vogal++;
 
-                else if (pos == 'e' || pos == 'E')
-                    vogal++;
-
-                else if (pos == 'i' || pos == 'I')
-                    vogal++;
-
-                else if (pos == 'o' || pos == 'O')
-                    vogal++;
-
-                else if (pos == 'u' || pos == 'U')   
-                    vogal++;
             }
 
             Console.WriteLine("Número de vogais: {0} vogais", vogal);
