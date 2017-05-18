@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApplication1
+namespace Contagem_de_Vogais
 {
     class Program
     {
@@ -19,7 +19,7 @@ namespace ConsoleApplication1
             Console.WriteLine("Hello, tell me and i will answer the number of PT/BR vowels");
             s = Console.ReadLine();
 
-            for(i = 0; i < s.Length; i++)
+            for (i = 0; i < s.Length; i++)
             {
                 pos = s[i];
 

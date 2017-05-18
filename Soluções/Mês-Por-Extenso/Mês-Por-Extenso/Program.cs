@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace ConsoleApplication1
+namespace Mês_Por_Extenso
 {
     class Program
     {
@@ -14,10 +15,10 @@ namespace ConsoleApplication1
 
             dta = Console.ReadLine();
 
-            dia = int.Parse(dta.Substring(0,2));
-            
-            if(dia < 10)
-                mes = dta.Substring(5,4);
+            dia = int.Parse(dta.Substring(0, 2));
+
+            if (dia < 10)
+                mes = dta.Substring(5, 4);
 
             else
                 mes = dta.Substring(6, 4);
@@ -28,7 +29,7 @@ namespace ConsoleApplication1
             else if (mes == "març" || mes == "Març")
                 dia = dia + 31 + 28;
             else if (mes == "abri" || mes == "Abri")
-                dia = dia + (2*31) + 28;
+                dia = dia + (2 * 31) + 28;
             else if (mes == "maio" || mes == "Maio")
                 dia = dia + 30 + (2 * 31) + 28;
             else if (mes == "junh" || mes == "Junh")
@@ -48,13 +49,6 @@ namespace ConsoleApplication1
 
             Console.WriteLine("{0}º", dia);
 
-
-
-
-
-
-
-            
         }
     }
 }

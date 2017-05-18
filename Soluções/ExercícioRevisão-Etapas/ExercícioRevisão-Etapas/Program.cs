@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApplication1
+namespace ExercícioRevisão_Etapas
 {
     class Program
     {
-        public struct Carro
+        static void Main(string[] args)
+        {
+                    public struct Carro
         {
             public string modelo;
             public double cv;
@@ -51,7 +53,6 @@ namespace ConsoleApplication1
                 pot = "Potente";
 
             return String.Format("{0} - {1} - {2}", c.modelo, uso, pot); 
-
         }
-     }
+    }
 }
