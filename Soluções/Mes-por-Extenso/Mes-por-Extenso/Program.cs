@@ -34,7 +34,7 @@ namespace Mes_por_Extenso
                 default: { m = "OPA, FOI TROLLED"; break; }
             }
 
-            Console.WriteLine(" {0} de {1} do ano {2}", dia, mes, ano);
+            Console.WriteLine(" {0} de {1} do ano {2}", dia, m, ano);
         }
     }
 }
