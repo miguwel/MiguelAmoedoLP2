@@ -20,12 +20,11 @@ namespace ConsoleApplication1
             int y = int.Parse(Console.ReadLine());
 
             Console.Write("Digite comando: ");
-
+            
             while (Console.ReadKey().Key != ConsoleKey.Escape)
             {
-                
                 ConsoleKey direcao = Console.ReadKey().Key;
-               
+
                 if (direcao == ConsoleKey.RightArrow)
                     obj.AndDir();
 
@@ -37,7 +36,7 @@ namespace ConsoleApplication1
 
                 else if (direcao == ConsoleKey.DownArrow)
                     obj.Descer();
-
+                
                 Console.WriteLine(obj.Coordenadas());
             }
         }
