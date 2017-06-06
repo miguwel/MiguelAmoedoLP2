@@ -26,24 +26,34 @@ namespace Mês_Por_Extenso
 
             if (mes == "feve" || mes == "Feve")
                 dia = dia + 31;
+                
             else if (mes == "març" || mes == "Març")
                 dia = dia + 31 + 28;
+                
             else if (mes == "abri" || mes == "Abri")
                 dia = dia + (2 * 31) + 28;
+                
             else if (mes == "maio" || mes == "Maio")
                 dia = dia + 30 + (2 * 31) + 28;
+                
             else if (mes == "junh" || mes == "Junh")
                 dia = dia + 30 + (3 * 31) + 28;
+                
             else if (mes == "julh" || mes == "Julh")
                 dia = dia + (2 * 30) + (3 * 31) + 28;
+                
             else if (mes == "agos" || mes == "Agos")
                 dia = dia + (2 * 30) + (4 * 31) + 28;
+                
             else if (mes == "sete" || mes == "Sete")
                 dia = dia + (2 * 30) + (5 * 31) + 28;
+                
             else if (mes == "outu" || mes == "Outu")
                 dia = dia + (3 * 30) + (5 * 31) + 28;
+                
             else if (mes == "nove" || mes == "Nove")
                 dia = dia + (3 * 30) + (6 * 31) + 28;
+                
             else if (mes == "deze" || mes == "Deze")
                 dia = dia + (4 * 30) + (6 * 31) + 28;
 
