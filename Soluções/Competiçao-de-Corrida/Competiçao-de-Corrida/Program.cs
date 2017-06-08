@@ -15,8 +15,6 @@ namespace Competiçao_de_Corrida
             Competidor [] comp = new Competidor [n];
             double [] tempoOf = new double [n];
 
-            int menorTempo;
-
             int i = 0;
             while (i < n)
             {
@@ -30,9 +28,6 @@ namespace Competiçao_de_Corrida
             
                 i++;
             }
-
-            //*TESTE ====> Console.WriteLine("O tempo oficial de {0} é {1} segundos", comp.nome, tempoOf);
-
         }
     }
 }
