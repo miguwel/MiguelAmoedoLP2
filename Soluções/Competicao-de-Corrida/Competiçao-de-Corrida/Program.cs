@@ -39,7 +39,7 @@ namespace Competiçao_de_Corrida
                 if (tempoOf[i] < TempoVencendor)
                 {
                     TempoVencendor = tempoOf[i];
-                    vencedor = comp[0].nome;
+                    vencedor = comp[i].nome;
                 }
 
                 i++;

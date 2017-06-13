@@ -24,14 +24,27 @@ namespace ConsoleApplication1
             obj.y = y;
 
             Console.Write("Digite comando: ");
+            ConsoleKey comando = Console.ReadKey().Key;
             
-            while (Console.ReadKey().Key != ConsoleKey.Escape)
+            while (comando != ConsoleKey.Escape)
             {
 
-                if (direcao == ConsoleKey.RightArrow)
+                if (comando == ConsoleKey.RightArrow)
                     obj.AndDir();
-              
+                
+                else if (comando == ConsoleKey.LeftArrow)
+                    obj.AndEsq();
+
+                if (comando == ConsoleKey.UpArrow)
+                    obj.Subir();
+
+                if (comando == ConsoleKey.DownArrow)
+                    obj.Descer();
+
                 Console.WriteLine(obj.Coordenadas());
+                
+                Console.Write("Digite comando: ");
+                comando = Console.ReadKey().Key;
             }
         }
     }
