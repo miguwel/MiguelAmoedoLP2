@@ -47,7 +47,7 @@ namespace Livros_Hermione
             imp = 0;
             while(i < N)
             {
-                if (livro[i].TempoDeLeitura(paghr) < N * hrsdia)
+                if (livro[i].TempoDeLeitura(paghr) > N * hrsdia)
                 {
                     Console.WriteLine("O livro '{0}' é impossivel de ser lido", livro[i].titulo);
                     imp++;
