@@ -10,7 +10,8 @@ namespace Livros_Hermione
     {
         static void Main(string[] args)
         {
-            int paghr, hrsdia, N, Ttotalhr = 0, TtotalDias, imp;
+            double paghr, hrsdia, Ttotalhr = 0, TtotalDias; 
+            int N, imp;
             
             Console.WriteLine("Quantos livros desta vez? ");
             N = int.Parse(Console.ReadLine());
@@ -18,10 +19,10 @@ namespace Livros_Hermione
             Livro[] livro = new Livro[N];
 
             Console.WriteLine("Quantas paginas por hora?");
-            paghr = int.Parse(Console.ReadLine());
+            paghr = double.Parse(Console.ReadLine());
 
             Console.WriteLine("Quantas horas por dia?");
-            hrsdia = int.Parse(Console.ReadLine());
+            hrsdia = double.Parse(Console.ReadLine());
 
 
             int i = 0;
@@ -33,10 +34,10 @@ namespace Livros_Hermione
                 livro[i].titulo = Console.ReadLine();
 
                 Console.WriteLine("Quantidade de paginas do livro: ");
-                livro[i].qtdpag = int.Parse(Console.ReadLine());
+                livro[i].qtdpag = double.Parse(Console.ReadLine());
 
                 Console.WriteLine("Quantos dias até a devolução? ");
-                livro[i].DiasAteDev = int.Parse(Console.ReadLine());
+                livro[i].DiasAteDev = double.Parse(Console.ReadLine());
 
                 Ttotalhr = Ttotalhr + livro[i].TempoDeLeitura(paghr);
 
@@ -47,7 +48,7 @@ namespace Livros_Hermione
             imp = 0;
             while(i < N)
             {
-                if (livro[i].TempoDeLeitura(paghr) > N * hrsdia)
+                if (livro[i].TempoDeLeitura(paghr) > livro[i].DiasAteDev * hrsdia)
                 {
                     Console.WriteLine("O livro '{0}' é impossivel de ser lido", livro[i].titulo);
                     imp++;

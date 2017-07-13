@@ -9,9 +9,9 @@ namespace Livros_Hermione
     class Livro
     {
         public string titulo;
-        public int qtdpag, DiasAteDev;
+        public double qtdpag, DiasAteDev;
 
-        public int TempoDeLeitura(int paghr)
+        public double TempoDeLeitura(double paghr)
         {
             return qtdpag / paghr;
         }
