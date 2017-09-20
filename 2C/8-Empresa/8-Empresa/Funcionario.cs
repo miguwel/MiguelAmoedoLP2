@@ -10,7 +10,7 @@ namespace _8_Empresa
     {
         public Funcionario (int reg)
         {
-            Nro_registro = reg;
+            nro_registro = reg;
         }
 
         public string Nome { get; set; }
@@ -19,8 +19,16 @@ namespace _8_Empresa
 
         public string Email { get; set; }
 
-        public int Nro_registro { get; set; }
+        private int nro_registro;
+        public int Nro_registro
+        {
+            get { return nro_registro; }
+        }
 
-        public string CPF { get; set; }
+        private string cpf;
+        public string CPF 
+        {
+            get { return cpf; } 
+        }
     }
 }
