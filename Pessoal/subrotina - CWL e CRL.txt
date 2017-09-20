@@ -1,6 +1,0 @@
-atributos
-métodos
-
-instanciar um objeto
-
-variável = REFERENCIA
