@@ -10,24 +10,45 @@ namespace _4.Codigo_Morsa
     {
         static void Main(string[] args)
         {
-
-            int op = 3;
-            Mensagem msg = new Mensagem();
-
-            while (op != 0)
+             while (true)
             {
+
                 Console.WriteLine("1 - Codificar");
                 Console.WriteLine("2 - Decodificar");
+                Console.WriteLine("3 - Transmitir");
                 Console.WriteLine("0 - Sair");
 
-                op = int.Parse(Console.ReadLine());
+                int opcao = int.Parse(Console.ReadLine());
+                if (opcao == 0)
+                    break;
 
-                if (op == 1)
-                    Console.WriteLine(msg.Codificar());
+                Mensagem mAtual = new Mensagem();
 
-                else if (op == 2)
-                    Console.WriteLine(msg.Decodificar());
+                switch (opcao)
+                {
+                    case 1:
+                        Console.WriteLine("Codificar: ");
+                        mAtual.Texto = Console.ReadLine();
+                        Console.WriteLine(mAtual.PortuguesParaMorse());
+                        break;
 
+                    case 2:
+                        Console.WriteLine("Decodificar: ");
+                        mAtual.Texto = Console.ReadLine();
+                        mAtual.Codificada = true;
+                        Console.WriteLine(mAtual.MorseParaPortugues());
+                        break;
+
+                    case 3:
+                        Console.WriteLine("Transmitir (em português): ");
+                        mAtual.Texto = Console.ReadLine();
+                        Console.WriteLine(mAtual.PortuguesParaMorse());
+                        mAtual.Transmitir();
+                        break;
+
+                    default:
+                        break;
+                }
             } 
         }
     }

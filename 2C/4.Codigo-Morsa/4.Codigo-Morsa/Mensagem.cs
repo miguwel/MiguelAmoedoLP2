@@ -8,66 +8,113 @@ namespace _4.Codigo_Morsa
 {
     class Mensagem
     {
-        public string txt { get; set; }
-        private string[] morse = new string[] 
-        { 
-            ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.." 
+        public string Texto { get; set; }
+        public bool Codificada { get; set; }
+
+        private int frequenciaNatural = 2000; 
+        private int duracaoNatural = 240; 
+        private string[] alfabetoMorse = new string[] {
+            ".-",
+            "-...",
+            "-.-.",
+            "-..",
+            ".",
+            "..-.",
+            "--.",
+            "....",
+            "..",
+            ".---",
+            "-.-",
+            ".-..",
+            "--",
+            "-.",
+            "---",
+            ".--.",
+            "--.-",
+            ".-.",
+            "...",
+            "-",
+            "..-",
+            "...-",
+            ".--",
+            "-..-",
+            "-.--",
+            "--..",
         };
 
-        private char[] letra = new char[]
+        public string PortuguesParaMorse()
         {
-            'a', 'b', 'c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-        };
+            string res = "";
+            char[] input = Texto.ToCharArray();
 
-        public string Codificar()
-        {
-            string codigo = "", x = "";
-
-            Console.WriteLine("Codificar:");
-            txt = Console.ReadLine();
-
-            for (int i = 0; i < txt.Length; i++)
+            for (int i = 0; i < Texto.Length; i++)
             {
-                for (int p = 0; p < 26; p++)
+                int index = input[i] - 'A';
+                string somar = "";
+
+                if (index >= 0 && index < alfabetoMorse.Length)
                 {
-                    if (txt[i] == letra[p] || txt[i] == char.ToUpper(letra[p]))
-                    {
-                        x = morse[p];
-                    }
+                    somar = alfabetoMorse[input[i] - 'A'];
                 }
 
-                string cod = x + " ";
-                codigo += cod;
+                else if (input[i].ToString() == " ")
+                    somar = "  ";
+
+                else
+                    somar = input[i] + "";
+
+                res += somar;
+                res += " ";
             }
 
-            return codigo;
+            return res;
         }
 
-        public string Decodificar()
+        public string MorseParaPortugues()
         {
-            string mensagem = "";
-            char caracter = ' ';
-
-            Console.WriteLine("Decodificar:");
-            txt = Console.ReadLine();
-
-            string[] codigo = txt.Split(' ');
-
-            for (int i = 0; i < codigo.Length; i++)
+            if (Codificada)
             {
-                for (int p = 0; p < 26; p++)
-                {
-                    if (codigo[i] == morse[p])
-                    {
-                        caracter = char.ToUpper(letra[p]);
-                    }
-                }
+                string res = "";
 
-                char cod = caracter;
-                mensagem += cod;
+                string[] letras = Texto.Split(' ');
+
+                foreach (string letra in letras)
+                {
+                    int index = Array.IndexOf(alfabetoMorse, letra);
+
+                    if (index != -1)
+                    {
+                        char ch = (char)(index + 'A');
+                        Console.Write(ch);
+                    }
+                    else
+                        Console.Write(" ");
+                }
+                return res;
             }
 
-            return mensagem;
+            throw new Exception("A mensagem não está codificada!");
+        }
+
+        public void Transmitir()
+        {
+            string emMorse = Texto;
+
+            if (!Codificada)
+                emMorse = PortuguesParaMorse();
+
+            for (int i = 0; i < emMorse.Length; i++)
+            {
+                if (emMorse[i] == '.')
+                    Console.Beep(frequenciaNatural, duracaoNatural / 2);
+                else if (emMorse[i] == '-')
+                    Console.Beep(frequenciaNatural, duracaoNatural);
+            }
+        }
+
+        public Mensagem()
+        {
+            Codificada = false;
         }
     }
 }
