@@ -1,6 +1,6 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +11,11 @@ namespace LP2_BD_Exemplo
     {
         static void Main(string[] args)
         {
-            MySqlConnection conec = new MySqlConnection("Server=localhost;Database=escola;Uid=root;Pwd=");
-            MySqlCommand cmd = new MySqlCommand();
+            SqlConnection conec = new SqlConnection("Data Source=EN2LIA_14;Initial Catalog=Escola;Integrated Security=SSPI");
+            SqlCommand cmd = new SqlCommand();
 
             cmd.Connection = conec;
-            cmd.CommandText = "INSERT INTO Aluno(nome) VALUES ('ok');";
+            cmd.CommandText = "INSERT INTO Alunos(id,Matricula,Nome) VALUES ('1','1','Jorj');";
 
             conec.Open();
             cmd.ExecuteNonQuery();
