@@ -15,18 +15,48 @@ namespace LP2_BD_Exemplo
             int o, j;
             Carro carro = new Carro();
             o = 1;
+            Console.WriteLine("-----------------Banco de Dados-------------------");
+            SqlCommand comando = new SqlCommand()
+            {
+                Connection = new SqlConnection("Data Source=localhost;Initial Catalog=LPAula;Integrated Security=SSPI"),
+                CommandText = @"SELECT Id, Marca, Modelo, Cor, Placa
+                                FROM Carro;"
+            };
+            try
+            {
+                comando.Connection.Open();
+                SqlDataReader reader = comando.ExecuteReader();
+                if(reader.HasRows)
+                {
+                    while(reader.Read())
+                    {
+                        int Id = reader.GetInt32(0);
+                        string Marca = reader.GetString(1);
+                        string Modelo = reader.GetString(2);
+                        string Cor = reader.GetString(3);
+                        string Placa = reader.GetString(4);
 
+                        Console.WriteLine("Id: {0} {1} {2} {3} {4};", Id, Marca, Modelo, Cor, Placa);
+                    }
+                }
+                comando.Connection.Close();       
+            }
+            catch
+            {
+                Console.WriteLine("CHAMA O CORPO DE BOMBEIROS");
+            }
+            Console.WriteLine("--------------------------------------------------");
             while (o != 0)
             {
-                Console.WriteLine("1 - Cadastrar");
+                Console.WriteLine("\n1 - Cadastrar");
                 Console.WriteLine("2 - Deletar");
-                Console.WriteLine("0 - Encerrar");
+                Console.WriteLine("0 - Encerrar\n");
                 o = int.Parse(Console.ReadLine());
 
                 if (o == 1)
                 {
                    
-                    Console.WriteLine("   Insira os dados do Carro: ");
+                    Console.WriteLine("\nInsira os dados do Carro: ");
 
                     Console.Write("   Marca: ");
                     carro.Marca = Console.ReadLine();
@@ -69,19 +99,19 @@ namespace LP2_BD_Exemplo
 
                     conec.Close();
 
-                    Console.WriteLine("Efetuado com sucesso");
+                    Console.WriteLine("Cadastrado com sucesso");
                 }
 
                 if(o == 2)
                 {
-                    Console.WriteLine(" 1 - Por ID");
-                    Console.WriteLine(" 2 - Por Potencia");
-                    Console.WriteLine(" 3 - Por Modelo e Cor");
+                    Console.WriteLine("\n1 - Por ID");
+                    Console.WriteLine("2 - Por Potencia");
+                    Console.WriteLine("3 - Por Modelo e Cor\n");
                     j = int.Parse(Console.ReadLine());
                     
                     if(j == 1)
                     {
-                        Console.Write("   Digite o ID: ");
+                        Console.Write("\nDigite o ID: ");
                         op1 = Console.ReadLine();
 
                         SqlConnection conec = new SqlConnection("Data Source=localhost;Initial Catalog=LPAula;Integrated Security=SSPI");
@@ -99,12 +129,12 @@ namespace LP2_BD_Exemplo
 
                         cmd.Parameters.RemoveAt("id");
 
-                        Console.WriteLine("Efetuado com sucesso");
+                        Console.WriteLine("\nEfetuado com sucesso\n");
                     }
 
                     if (j == 2)
                     {
-                        Console.Write("   Digite a Potencia Minima: ");
+                        Console.Write("\nDigite a Potencia Minima: ");
                         op2 = Console.ReadLine();
 
                         SqlConnection conec = new SqlConnection("Data Source=localhost;Initial Catalog=LPAula;Integrated Security=SSPI");
@@ -122,14 +152,14 @@ namespace LP2_BD_Exemplo
 
                         cmd.Parameters.RemoveAt("pot");
 
-                        Console.WriteLine("Efetuado com sucesso");
+                        Console.WriteLine("\nEfetuado com sucesso\n");
                     }
 
                     if (j == 3)
                     {
-                        Console.Write("   Digite o Modelo: ");
+                        Console.Write("\nDigite o Modelo: ");
                         op3 = Console.ReadLine();
-                        Console.Write("   Digite a Cor: ");
+                        Console.Write("Digite a Cor: ");
                         op4 = Console.ReadLine();
 
                         SqlConnection conec = new SqlConnection("Data Source=localhost;Initial Catalog=LPAula;Integrated Security=SSPI");
@@ -149,8 +179,40 @@ namespace LP2_BD_Exemplo
                         cmd.Parameters.RemoveAt("Mod");
                         cmd.Parameters.RemoveAt("Cor");
 
-                        Console.WriteLine("Efetuado com sucesso");
+                        Console.WriteLine("\nEfetuado com sucesso\n");
                     }
+
+                    Console.WriteLine("-----------------Banco de Dados-------------------");
+                    SqlCommand comand = new SqlCommand()
+                    {
+                        Connection = new SqlConnection("Data Source=localhost;Initial Catalog=LPAula;Integrated Security=SSPI"),
+                        CommandText = @"SELECT Id, Marca, Modelo, Cor, Placa
+                                FROM Carro;"
+                    };
+                    try
+                    {
+                        comand.Connection.Open();
+                        SqlDataReader reader = comand.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                int Id = reader.GetInt32(0);
+                                string Marca = reader.GetString(1);
+                                string Modelo = reader.GetString(2);
+                                string Cor = reader.GetString(3);
+                                string Placa = reader.GetString(4);
+
+                                Console.WriteLine("Id: {0} {1} {2} {3} {4};", Id, Marca, Modelo, Cor, Placa);
+                            }
+                        }
+                        comand.Connection.Close();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("CHAMA O CORPO DE BOMBEIROS");
+                    }
+                    Console.WriteLine("--------------------------------------------------");
                 }
             }
         }
