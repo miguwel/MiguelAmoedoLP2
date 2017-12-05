@@ -36,7 +36,7 @@ namespace LP2_BD_Exemplo
                         string Cor = reader.GetString(3);
                         string Placa = reader.GetString(4);
 
-                        Console.WriteLine("Id: {0} {1} {2} {3} {4};", Id, Marca, Modelo, Cor, Placa);
+                        Console.WriteLine("Id: {0} {1,-15} {2,5} {3,5} {4,5};", Id, Marca, Modelo, Cor, Placa);
                     }
                 }
                 comando.Connection.Close();       
