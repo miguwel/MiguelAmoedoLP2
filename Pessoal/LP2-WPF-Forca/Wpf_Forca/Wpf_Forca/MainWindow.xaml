@@ -3,35 +3,50 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="387.313" Width="525">
     <Grid>
-        <TextBox x:Name="txt_In" HorizontalAlignment="Left" Height="43" Margin="28,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="389" FontFamily="Times New Roman" FontSize="20"/>
-        <Button x:Name="btn_In" Content="Button" HorizontalAlignment="Left" Margin="422,27,0,0" VerticalAlignment="Top" Width="85" Height="43" Click="btn_In_Click"/>
-        <TextBox x:Name="txt_vidas" HorizontalAlignment="Left" Height="45" Margin="163,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF380303"/>
+                <GradientStop Color="#FFFD1919" Offset="0.247"/>
+                <GradientStop Color="Black" Offset="0.647"/>
+                <GradientStop Color="Black" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <TextBox x:Name="txt_In" HorizontalAlignment="Left" Height="43" Margin="163,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" FontFamily="Times New Roman" FontSize="24"/>
+        <Button x:Name="btn_In" Content="Button" HorizontalAlignment="Right" Margin="0,27,29,0" VerticalAlignment="Top" Width="85" Height="43" Click="btn_In_Click" Grid.Column="1"/>
+        <TextBox x:Name="txt_string" HorizontalAlignment="Left" Height="45" Margin="163,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" FontSize="24" FontFamily="Times New Roman" FontWeight="Bold"/>
         <Button x:Name="btn_A" Content="A" HorizontalAlignment="Left" Margin="42,166,0,0" VerticalAlignment="Top" Width="50" Height="38" Click="btn_A_Click"/>
         <Button x:Name="btn_B" Content="B" HorizontalAlignment="Left" Margin="97,166,0,0" VerticalAlignment="Top" Width="50" Height="38" Click="btn_B_Click"/>
-        <Button x:Name="btn_I" Content="I" HorizontalAlignment="Left" Margin="42,209,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_J" Content="J" HorizontalAlignment="Left" Margin="97,209,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_C" Content="C" HorizontalAlignment="Left" Margin="152,166,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_D" Content="D" HorizontalAlignment="Left" Margin="207,166,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_E" Content="E" HorizontalAlignment="Left" Margin="262,166,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_F" Content="F" HorizontalAlignment="Left" Margin="317,166,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-0.003,0.574" Height="38"/>
-        <Button x:Name="btn_K" Content="K" HorizontalAlignment="Left" Margin="152,209,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_L" Content="L" HorizontalAlignment="Left" Margin="207,209,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_M" Content="M" HorizontalAlignment="Left" Margin="262,209,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_G" Content="G" HorizontalAlignment="Left" Margin="372,166,0,0" VerticalAlignment="Top" Width="50" Height="38" RenderTransformOrigin="0.983,-0.162"/>
-        <Button x:Name="btn_N" Content="N" HorizontalAlignment="Left" Margin="317,209,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_O" Content="O" HorizontalAlignment="Left" Margin="372,209,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_H" Content="H" HorizontalAlignment="Left" Margin="427,166,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_P" Content="P" HorizontalAlignment="Left" Margin="427,209,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_Q" Content="Q" HorizontalAlignment="Left" Margin="42,252,0,0" VerticalAlignment="Top" Width="50" Height="38" RenderTransformOrigin="0.511,0.538"/>
-        <Button x:Name="btn_R" Content="R" HorizontalAlignment="Left" Margin="97,252,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_S" Content="S" HorizontalAlignment="Left" Margin="152,252,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_T" Content="T" HorizontalAlignment="Left" Margin="207,252,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_U" Content="U" HorizontalAlignment="Left" Margin="262,252,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_V" Content="V" HorizontalAlignment="Left" Margin="317,252,0,0" VerticalAlignment="Top" Width="48" Height="38"/>
-        <Button x:Name="btn_W" Content="W" HorizontalAlignment="Left" Margin="370,252,0,0" VerticalAlignment="Top" Width="52" RenderTransformOrigin="0.496,0.523" Height="38"/>
-        <Button x:Name="btn_X" Content="X" HorizontalAlignment="Left" Margin="427,252,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_Y" Content="Y" HorizontalAlignment="Left" Margin="207,295,0,0" VerticalAlignment="Top" Width="50" Height="38"/>
-        <Button x:Name="btn_Z" Content="Z" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="262,295,0,0" Height="38"/>
+        <Button x:Name="btn_I" Content="I" HorizontalAlignment="Left" Margin="42,209,0,0" VerticalAlignment="Top" Width="50" Height="38" Click="btn_I_Click"/>
+        <Button x:Name="btn_J" Content="J" HorizontalAlignment="Left" Margin="97,209,0,0" VerticalAlignment="Top" Width="50" Height="38" Click="btn_J_Click"/>
+        <Button x:Name="btn_C" Content="C" HorizontalAlignment="Left" Margin="152,166,0,0" VerticalAlignment="Top" Width="50" Height="38" Click="btn_C_Click"/>
+        <Button x:Name="btn_D" Content="D" HorizontalAlignment="Left" Margin="207,166,0,0" VerticalAlignment="Top" Width="50" Height="38" Click="btn_D_Click"/>
+        <Button x:Name="btn_E" Content="E" HorizontalAlignment="Right" Margin="0,166,204,0" VerticalAlignment="Top" Width="50" Height="38" Grid.Column="1" Click="btn_E_Click"/>
+        <Button x:Name="btn_F" Content="F" HorizontalAlignment="Right" Margin="0,166,150,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-0.003,0.574" Height="38" Grid.Column="1" Click="btn_F_Click"/>
+        <Button x:Name="btn_K" Content="K" HorizontalAlignment="Left" Margin="152,209,0,0" VerticalAlignment="Top" Width="50" Height="38" Click="btn_K_Click"/>
+        0000000000000000000000000000000000000000000000000000000000000000000000000000000000
+0        <Button x:Name="btn_G" Content="G" HorizontalAlignment="Right" Margin="0,166,95,0" VerticalAlignment="Top" Width="50" Height="38" RenderTransformOrigin="0.983,-0.162" Grid.Column="1" Click=",0btn_G_Click"/>
+        <Button x:Name="btn_N" Content="N" HorizontalAlignment="Right" Margin="0,209,150,0" VerticalAlignment="Top" Width="50" Height="38" Grid.Column="1" Click="btn_N_Click"/>
+        <Button x:Name="btn_O" Content="O" HorizontalAlignment="Right" Margin="0,209,95,0" VerticalAlignment="Top" Width="50" Height="38" Grid.Column="1" Click="btn_O_Click"/>
+        <Button x:Name="btn_H" Content="H" HorizontalAlignment="Right" Margin="0,166,40,0" VerticalAlignment="Top" Width="50" Height="38" Grid.Column="1" Click="btn_H_Click"/>
+        <Button x:Name="btn_P" Content="P" HorizontalAlignment="Right" Margin="0,209,40,0" VerticalAlignment="Top" Width="50" Height="38" Grid.Column="1" Click="btn_P_Click"/>
+        <Button x:Name="btn_Q" Content="Q" HorizontalAlignment="Left" Margin="42,252,0,0" VerticalAlignment="Top" Width="50" Height="38" RenderTransformOrigin="0.511,0.538" Click="btn_Q_Click"/>
+        <Button x:Name="btn_R" Content="R" HorizontalAlignment="Left" Margin="97,252,0,0" VerticalAlignment="Top" Width="50" Height="38" Click="btn_R_Click"/>
+        <Button x:Name="btn_S" Content="S" HorizontalAlignment="Left" Margin="152,252,0,0" VerticalAlignment="Top" Width="50" Height="38" Click="btn_S_Click"/>
+        <Button x:Name="btn_T" Content="T" HorizontalAlignment="Left" Margin="207,252,0,0" VerticalAlignment="Top" Width="50" Height="38" Click="btn_T_Click"/>
+        <Button x:Name="btn_U" Content="U" HorizontalAlignment="Right" Margin="0,252,204,0" VerticalAlignment="Top" Width="50" Height="38" Grid.Column="1" Click="btn_U_Click"/>
+        <Button x:Name="btn_V" Content="V" HorizontalAlignment="Right" Margin="0,252,150,0" VerticalAlignment="Top" Width="50" Height="38" Grid.Column="1" Click="btn_V_Click"/>
+        <Button x:Name="btn_W" Content="W" HorizontalAlignment="Right" Margin="0,252,95,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.496,0.523" Height="38" Grid.Column="1" Click="btn_W_Click"/>
+        <Button x:Name="btn_X" Content="X" HorizontalAlignment="Right" Margin="0,252,40,0" VerticalAlignment="Top" Width="50" Height="38" Grid.Column="1" Click="btn_X_Click"/>
+        <Button x:Name="btn_Y" Content="Y" HorizontalAlignment="Left" Margin="207,295,0,0" VerticalAlignment="Top" Width="50" Height="38" Click="btn_Y_Click"/>
+        <Button x:Name="btn_Z" Content="Z" HorizontalAlignment="Right" VerticalAlignment="Top" Width="50" Margin="0,295,204,0" Height="38" Grid.Column="1" Click="btn_Z_Click"/>
+        <TextBox x:Name="txt_Vidas" HorizontalAlignment="Left" Height="83" Margin="73,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="49" Background="{x:Null}" FontSize="72" FontFamily="Times New Roman" BorderThickness="0">
+            <TextBox.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FFFFE800" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBox.Foreground>
+        </TextBox>
 
     </Grid>
 </Window>
