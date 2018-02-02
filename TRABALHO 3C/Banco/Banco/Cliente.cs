@@ -8,7 +8,17 @@ namespace Banco
 {
     class Cliente
     {
-        int Id { get; set; }
-        int Senha { get; set; }
+        public int Id { get; set; }
+
+        public int nConta { get; set; }
+
+        private int senha;
+        public int Senha
+        {
+            set
+            {
+                senha = value;
+            }
+        }
     }
 }
