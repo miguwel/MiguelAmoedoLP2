@@ -11,6 +11,7 @@ namespace Banco
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("-------------------Bem Vindo!-------------------------------------------------------------------------------------------");
             int confirm;
             int op = 1;
             int erro = 0;
@@ -20,7 +21,7 @@ namespace Banco
 
             while (op != 3)
             {
-                Console.WriteLine("-------------------Bem Vindo!-------------------------------------------------------------------------------------------");
+               
                 Console.WriteLine("\n1 - Acessar Contas");
                 Console.WriteLine("2 - Area Restrita");
                 Console.WriteLine("3 - Sair\n");
@@ -392,7 +393,7 @@ namespace Banco
 
                                     Console.WriteLine("\n---------------TRANSAÇÃO COMPLETA-----------------Seu saldo atual é de: R${0}-------------------------------------------", SaldoAtual);
 
-                                    int a = 6;
+                                    int a = 1;
 
                                     cmd.Connection.Open();
 
@@ -450,15 +451,15 @@ namespace Banco
                             if (erro != 1)
                             {
 
-                                int Id_env, Id_rec, quantia, operador = 6;
-                                Console.WriteLine("\nTransferencias: \n");
+                                int Id_env, Id_rec, quantia;
+
+                                Console.WriteLine("\n-----------------------------------------------------");
 
                                 cmd.Connection.Open();
 
                                 cmd.Parameters.AddWithValue("nConta", c.nConta);
-                                cmd.Parameters.AddWithValue("Op", operador);
 
-                                cmd.CommandText = @"SELECT * FROM Transferencias WHERE Id_env = @nConta AND Id_env != Id_rec AND Id_rec != @Op;";
+                                cmd.CommandText = @"SELECT * FROM Transferencias WHERE Id_env = @nConta AND Id_env != Id_rec AND Id_rec != 1;";
 
                                 SqlDataReader lei = cmd.ExecuteReader();
 
@@ -466,6 +467,7 @@ namespace Banco
                                 {
                                     while (lei.Read())
                                     {
+                                        Console.WriteLine("\nTransferencias: ");
                                         Id_env = lei.GetInt32(1);
                                         Id_rec = lei.GetInt32(2);
                                         quantia = lei.GetInt32(3);
@@ -475,13 +477,9 @@ namespace Banco
                                 }
 
                                 cmd.Parameters.RemoveAt("nConta");
-                                cmd.Parameters.RemoveAt("Op");
                                 
                                 cmd.Connection.Close();
-
-                                Console.WriteLine("\n-----------------------------------------------------");
-                                Console.WriteLine("\nDepósitos: \n");
-
+                                
                                 cmd.Connection.Open();
 
                                 cmd.Parameters.AddWithValue("nConta", c.nConta);
@@ -494,6 +492,7 @@ namespace Banco
                                 {
                                     while (readr.Read())
                                     {
+                                        Console.WriteLine("\nDepósitos: ");
                                         Id_env = readr.GetInt32(1);
                                         quantia = readr.GetInt32(3);
 
@@ -503,17 +502,13 @@ namespace Banco
 
                                 cmd.Parameters.RemoveAt("nConta");
 
-                                cmd.Connection.Close();
-
-                                Console.WriteLine("\n-----------------------------------------------------");
-                                Console.WriteLine("\nSaques: ");
+                                cmd.Connection.Close();          
 
                                 cmd.Connection.Open();
 
                                 cmd.Parameters.AddWithValue("nConta", c.nConta);
-                                cmd.Parameters.AddWithValue("Op", operador);
-
-                                cmd.CommandText = @"SELECT * FROM Transferencias WHERE Id_env = @nConta AND Id_rec = @Op;";
+                            
+                                cmd.CommandText = @"SELECT * FROM Transferencias WHERE Id_env = @nConta AND Id_rec = 1;";
 
                                 SqlDataReader rea = cmd.ExecuteReader();
 
@@ -521,6 +516,7 @@ namespace Banco
                                 {
                                     while (rea.Read())
                                     {
+                                        Console.WriteLine("\nSaques: ");
                                         Id_env = rea.GetInt32(1);
                                         quantia = rea.GetInt32(3);
 
@@ -529,7 +525,6 @@ namespace Banco
                                 }
 
                                 cmd.Parameters.RemoveAt("nConta");
-                                cmd.Parameters.RemoveAt("Op");
 
                                 cmd.Connection.Close();
 
@@ -682,8 +677,8 @@ namespace Banco
                             cmd.Parameters.AddWithValue("agencia", nAgencia);
 
                             cmd.CommandText = @"INSERT 
-                                            INTO Conta(Tipo, id_cliente, id_agencia)
-                                            VALUES(@Tipo,@idCliente,@agencia);";
+                                            INTO Conta(Tipo, Saldo, id_cliente, id_agencia)
+                                            VALUES(@Tipo, 0,@idCliente,@agencia);";
 
                             cmd.ExecuteNonQuery();
 
@@ -803,7 +798,7 @@ namespace Banco
 
                             cmd.Connection.Open();
 
-                            cmd.CommandText = @"SELECT c.Id, c.Nome, c.Sobrenome, ct.Tipo, ct.Id_agencia FROM Cliente AS c, Conta AS ct WHERE c.id = ct.id_cliente AND c.Id != 9;";
+                            cmd.CommandText = @"SELECT c.Id, c.Nome, c.Sobrenome, ct.Tipo, ct.Id_agencia FROM Cliente AS c, Conta AS ct WHERE c.id = ct.id_cliente AND c.Id != 1;";
 
                             SqlDataReader leitor = cmd.ExecuteReader();
 
