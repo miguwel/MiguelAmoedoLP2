@@ -69,6 +69,9 @@ namespace Banco
                     {
                         Console.WriteLine("\n1 - Ver Saldo");
                         Console.WriteLine("2 - Realizar Trasferencias");
+                        Console.WriteLine("3 - Realizar Deposito");
+                        Console.WriteLine("4 - Realizar Saque");
+                        Console.WriteLine("5 - Ver Extrato");
                         Console.WriteLine("0 - Sair\n");
 
                         op = Int32.Parse(Console.ReadLine());
@@ -151,6 +154,7 @@ namespace Banco
 
                                 Console.WriteLine("\n Deseja confirmar a transação da conta: {0}; \n Para a conta: {1}; \n No valor de R${2}? se sim digite '1'\n", c.nConta, ContaDest, qtd);
                                 confirm = Int32.Parse(Console.ReadLine());
+
                                 if (confirm == 1)
                                 {
                                     cmd.Connection.Open();
@@ -175,7 +179,7 @@ namespace Banco
                                     SaldoUsuario = SaldoUsuario - qtd;
                                     SaldoDestinatario = SaldoDestinatario + qtd;
 
-                                    Console.WriteLine("\n---------------TRANSAÇÃO COMPLETA-----------------Seu saldo atual é de: R${0}-------------------------------------------", SaldoUsuario);
+
 
                                     cmd.Connection.Open();
 
@@ -208,7 +212,328 @@ namespace Banco
                                     cmd.Parameters.RemoveAt("Saldo");
 
                                     cmd.Connection.Close();
+
+                                    Console.WriteLine("\n---------------TRANSAÇÃO COMPLETA-----------------Seu saldo atual é de: R${0}-------------------------------------------", SaldoUsuario);
+
+                                    cmd.Connection.Open();
+
+                                    cmd.Parameters.AddWithValue("contaEnv", c.nConta);
+                                    cmd.Parameters.AddWithValue("contaDest", ContaDest);
+                                    cmd.Parameters.AddWithValue("quantia", qtd);
+
+                                    cmd.CommandText = @"INSERT INTO Transferencias(Id_Env, Id_Rec, Quantia)
+                                                               VALUES (@contaEnv, @contaDest, @quantia);";
+
+                                    cmd.ExecuteNonQuery();
+
+                                    cmd.Parameters.RemoveAt("contaEnv");
+                                    cmd.Parameters.RemoveAt("contaDest");
+                                    cmd.Parameters.RemoveAt("quantia");
+
+                                    cmd.Connection.Close();
                                 }
+                            }
+                        }
+                        if (op == 3)
+                        {
+
+                            Console.Write("\nNúmero da Conta: ");
+                            c.nConta = Int32.Parse(Console.ReadLine());
+
+                            Console.Write("\nInforme a quantia de dinheiro que deseja Depositar: ");
+                            int qtd = Int32.Parse(Console.ReadLine());
+
+                            Console.WriteLine("\nConfirma o deposito de R${0} para a conta {1}? (digite 1)\n", qtd, c.nConta);
+                            confirm = Int32.Parse(Console.ReadLine());
+
+                            if (confirm == 1)
+                            {
+                                int SaldoAtual = 0;
+
+                                cmd.Connection.Open();
+                                cmd.Parameters.AddWithValue("nConta", c.nConta);
+
+                                cmd.CommandText = @"SELECT Saldo FROM Conta WHERE Id = @nConta";
+
+                                SqlDataReader leitor = cmd.ExecuteReader();
+
+                                if (leitor.HasRows)
+                                {
+                                    while (leitor.Read())
+                                    {
+                                        SaldoAtual = leitor.GetInt32(0);
+                                    }
+                                }
+
+                                cmd.Parameters.RemoveAt("nConta");
+
+                                cmd.Connection.Close();
+
+                                SaldoAtual = SaldoAtual + qtd;
+
+
+                                cmd.Connection.Open();
+
+                                cmd.Parameters.AddWithValue("Saldo", SaldoAtual);
+                                cmd.Parameters.AddWithValue("nConta", c.nConta);
+
+                                cmd.CommandText = @"UPDATE Conta
+                                                    SET Saldo = @Saldo
+                                                    WHERE id = @nConta;";
+
+                                cmd.ExecuteNonQuery();
+
+                                cmd.Parameters.RemoveAt("nConta");
+                                cmd.Parameters.RemoveAt("Saldo");
+
+                                cmd.Connection.Close();
+                                Console.WriteLine("\n---------------TRANSAÇÃO COMPLETA-----------------Seu saldo atual é de: R${0}-------------------------------------------", SaldoAtual);
+
+                                cmd.Connection.Open();
+
+                                cmd.Parameters.AddWithValue("conta", c.nConta);
+                                cmd.Parameters.AddWithValue("quantia", qtd);
+
+                                cmd.CommandText = @"INSERT INTO Transferencias(Id_Env, Id_Rec, Quantia)
+                                                               VALUES (@conta, @conta, @quantia);";
+
+                                cmd.ExecuteNonQuery();
+
+                                cmd.Parameters.RemoveAt("conta");
+                                cmd.Parameters.RemoveAt("quantia");
+
+                                cmd.Connection.Close();
+                            }
+                        }
+
+                        if (op == 4)
+                        {
+                            Console.Write("\nNúmero da Conta: ");
+                            c.nConta = Int32.Parse(Console.ReadLine());
+
+                            cmd.Connection.Open();
+
+                            cmd.Parameters.AddWithValue("idUser", c.Id);
+                            cmd.Parameters.AddWithValue("nConta", c.nConta);
+
+                            cmd.CommandText = @"SELECT Saldo FROM Conta WHERE Id = @nConta AND Id_cliente = @idUser;";
+
+                            SqlDataReader leitor = cmd.ExecuteReader();
+
+                            if (leitor.HasRows)
+                            {
+                                while (leitor.Read())
+                                {
+                                    erro = 0;
+                                }
+                            }
+
+                            else
+                            {
+                                erro = 1;
+                                Console.WriteLine("\n---------------Conta Inexistente ou Não é sua---------------------------------------------------------------------------");
+                            }
+
+                            cmd.Parameters.RemoveAt("idUser");
+                            cmd.Parameters.RemoveAt("nConta");
+
+                            cmd.Connection.Close();
+
+                            if (erro != 1)
+                            {
+
+
+                                Console.Write("\nInforme a quantia de dinheiro que deseja Sacar: ");
+                                int qtd = Int32.Parse(Console.ReadLine());
+
+                                Console.WriteLine("\nConfirma o saque de R${0} da conta {1}? (digite 1)\n", qtd, c.nConta);
+                                confirm = Int32.Parse(Console.ReadLine());
+                                if (confirm == 1)
+                                {
+                                    int SaldoAtual = 0;
+
+                                    cmd.Connection.Open();
+                                    cmd.Parameters.AddWithValue("nConta", c.nConta);
+
+                                    cmd.CommandText = @"SELECT Saldo FROM Conta WHERE Id = @nConta";
+
+                                    SqlDataReader lei = cmd.ExecuteReader();
+
+                                    if (lei.HasRows)
+                                    {
+                                        while (lei.Read())
+                                        {
+                                            SaldoAtual = lei.GetInt32(0);
+                                        }
+                                    }
+
+                                    cmd.Parameters.RemoveAt("nConta");
+
+                                    cmd.Connection.Close();
+
+                                    SaldoAtual = SaldoAtual - qtd;
+
+
+                                    cmd.Connection.Open();
+
+                                    cmd.Parameters.AddWithValue("Saldo", SaldoAtual);
+                                    cmd.Parameters.AddWithValue("nConta", c.nConta);
+
+                                    cmd.CommandText = @"UPDATE Conta
+                                                        SET Saldo = @Saldo
+                                                        WHERE id = @nConta;";
+
+                                    cmd.ExecuteNonQuery();
+
+                                    cmd.Parameters.RemoveAt("nConta");
+                                    cmd.Parameters.RemoveAt("Saldo");
+
+                                    cmd.Connection.Close();
+
+                                    Console.WriteLine("\n---------------TRANSAÇÃO COMPLETA-----------------Seu saldo atual é de: R${0}-------------------------------------------", SaldoAtual);
+
+                                    int a = 6;
+
+                                    cmd.Connection.Open();
+
+                                    cmd.Parameters.AddWithValue("conta", c.nConta);
+                                    cmd.Parameters.AddWithValue("quantia", qtd);
+                                    cmd.Parameters.AddWithValue("A", a);
+
+                                    cmd.CommandText = @"INSERT INTO Transferencias(Id_Env, Id_Rec, Quantia)
+                                                                   VALUES (@conta, @A, @quantia);";
+
+                                    cmd.ExecuteNonQuery();
+
+                                    cmd.Parameters.RemoveAt("conta");
+                                    cmd.Parameters.RemoveAt("quantia");
+                                    cmd.Parameters.RemoveAt("A");
+
+                                    cmd.Connection.Close();
+                                }
+                            }
+                        }
+
+                        if (op == 5)
+                        {
+                            Console.Write("\nNúmero da Conta: ");
+                            c.nConta = Int32.Parse(Console.ReadLine());
+
+                            cmd.Connection.Open();
+
+                            cmd.Parameters.AddWithValue("idUser", c.Id);
+                            cmd.Parameters.AddWithValue("nConta", c.nConta);
+
+                            cmd.CommandText = @"SELECT Saldo FROM Conta WHERE Id = @nConta AND Id_cliente = @idUser;";
+
+                            SqlDataReader leitor = cmd.ExecuteReader();
+
+                            if (leitor.HasRows)
+                            {
+                                while (leitor.Read())
+                                {
+                                    erro = 0;
+                                }
+                            }
+
+                            else
+                            {
+                                erro = 1;
+                                Console.WriteLine("\n---------------Conta Inexistente ou Não é sua---------------------------------------------------------------------------");
+                            }
+
+                            cmd.Parameters.RemoveAt("idUser");
+                            cmd.Parameters.RemoveAt("nConta");
+
+                            cmd.Connection.Close();
+
+                            if (erro != 1)
+                            {
+
+                                int Id_env, Id_rec, quantia, operador = 6;
+                                Console.WriteLine("\nTransferencias: \n");
+
+                                cmd.Connection.Open();
+
+                                cmd.Parameters.AddWithValue("nConta", c.nConta);
+                                cmd.Parameters.AddWithValue("Op", operador);
+
+                                cmd.CommandText = @"SELECT * FROM Transferencias WHERE Id_env = @nConta AND Id_env != Id_rec AND Id_rec != @Op;";
+
+                                SqlDataReader lei = cmd.ExecuteReader();
+
+                                if (lei.HasRows)
+                                {
+                                    while (lei.Read())
+                                    {
+                                        Id_env = lei.GetInt32(1);
+                                        Id_rec = lei.GetInt32(2);
+                                        quantia = lei.GetInt32(3);
+
+                                        Console.WriteLine("Da conta {0} para a conta {1} no valor de R${2};", Id_env, Id_rec, quantia);
+                                    }
+                                }
+
+                                cmd.Parameters.RemoveAt("nConta");
+                                cmd.Parameters.RemoveAt("Op");
+                                
+                                cmd.Connection.Close();
+
+                                Console.WriteLine("\n-----------------------------------------------------");
+                                Console.WriteLine("\nDepósitos: \n");
+
+                                cmd.Connection.Open();
+
+                                cmd.Parameters.AddWithValue("nConta", c.nConta);
+
+                                cmd.CommandText = @"SELECT * FROM Transferencias WHERE Id_env = @nConta AND Id_env = Id_rec;";
+
+                                SqlDataReader readr = cmd.ExecuteReader();
+
+                                if (readr.HasRows)
+                                {
+                                    while (readr.Read())
+                                    {
+                                        Id_env = readr.GetInt32(1);
+                                        quantia = readr.GetInt32(3);
+
+                                        Console.WriteLine("Deposito de R${0} na conta {1};", quantia, Id_env);
+                                    }
+                                }
+
+                                cmd.Parameters.RemoveAt("nConta");
+
+                                cmd.Connection.Close();
+
+                                Console.WriteLine("\n-----------------------------------------------------");
+                                Console.WriteLine("\nSaques: ");
+
+                                cmd.Connection.Open();
+
+                                cmd.Parameters.AddWithValue("nConta", c.nConta);
+                                cmd.Parameters.AddWithValue("Op", operador);
+
+                                cmd.CommandText = @"SELECT * FROM Transferencias WHERE Id_env = @nConta AND Id_rec = @Op;";
+
+                                SqlDataReader rea = cmd.ExecuteReader();
+
+                                if (rea.HasRows)
+                                {
+                                    while (rea.Read())
+                                    {
+                                        Id_env = rea.GetInt32(1);
+                                        quantia = rea.GetInt32(3);
+
+                                        Console.WriteLine("Saque de R${0} da conta {1};", quantia, Id_env);
+                                    }
+                                }
+
+                                cmd.Parameters.RemoveAt("nConta");
+                                cmd.Parameters.RemoveAt("Op");
+
+                                cmd.Connection.Close();
+
+                                Console.WriteLine("\n-----------------------------------------------------");
                             }
                         }
                     }
@@ -249,7 +574,7 @@ namespace Banco
 
                     cmd.Connection.Close();
 
-                    while(op != 0)
+                    while (op != 0)
                     {
                         Console.WriteLine("\n1 - Cadastrar Cliente");
                         Console.WriteLine("2 - Excluir Cliente");
@@ -262,7 +587,7 @@ namespace Banco
 
                         op = Int32.Parse(Console.ReadLine());
 
-                        if(op == 1)
+                        if (op == 1)
                         {
                             Console.Write("Nome: ");
                             string nome = Console.ReadLine();
@@ -298,8 +623,8 @@ namespace Banco
                             cmd.Parameters.AddWithValue("Senha", pass);
 
                             cmd.CommandText = @"INSERT 
-                                                INTO Cliente(Nome, Sobrenome, CPF, CEP, Senha)
-                                                VALUES(@Nome,@Sobre,@CPF,@CEP,@Senha);";
+                                            INTO Cliente(Nome, Sobrenome, CPF, CEP, Senha)
+                                            VALUES(@Nome,@Sobre,@CPF,@CEP,@Senha);";
 
                             cmd.ExecuteNonQuery();
 
@@ -329,7 +654,7 @@ namespace Banco
                                 cmd.Parameters.AddWithValue("Id", id);
 
                                 cmd.CommandText = @"DELETE FROM Cliente
-                                                        WHERE Id = @Id";
+                                                    WHERE Id = @Id";
 
                                 cmd.ExecuteNonQuery();
 
@@ -357,8 +682,8 @@ namespace Banco
                             cmd.Parameters.AddWithValue("agencia", nAgencia);
 
                             cmd.CommandText = @"INSERT 
-                                                INTO Conta(Tipo, id_cliente, id_agencia)
-                                                VALUES(@Tipo,@idCliente,@agencia);";
+                                            INTO Conta(Tipo, id_cliente, id_agencia)
+                                            VALUES(@Tipo,@idCliente,@agencia);";
 
                             cmd.ExecuteNonQuery();
 
@@ -387,7 +712,7 @@ namespace Banco
                                 cmd.Parameters.AddWithValue("Id", id);
 
                                 cmd.CommandText = @"DELETE FROM Conta
-                                                        WHERE Id = @Id";
+                                                    WHERE Id = @Id";
 
                                 cmd.ExecuteNonQuery();
 
@@ -432,8 +757,8 @@ namespace Banco
                                 cmd.Parameters.AddWithValue("Acesso", pass);
 
                                 cmd.CommandText = @"INSERT 
-                                                INTO Agencia(Endereço, Acesso)
-                                                VALUES(@End,@Acesso);";
+                                            INTO Agencia(Endereço, Acesso)
+                                            VALUES(@End,@Acesso);";
 
                                 cmd.ExecuteNonQuery();
 
@@ -461,7 +786,7 @@ namespace Banco
                                 cmd.Parameters.AddWithValue("Id", id);
 
                                 cmd.CommandText = @"DELETE FROM Agencia
-                                                        WHERE Id = @Id";
+                                                    WHERE Id = @Id";
 
                                 cmd.ExecuteNonQuery();
 
@@ -478,7 +803,7 @@ namespace Banco
 
                             cmd.Connection.Open();
 
-                            cmd.CommandText = @"SELECT c.Id, c.Nome, c.Sobrenome, ct.Tipo, ct.Id_agencia FROM Cliente AS c, Conta AS ct WHERE c.id = ct.id_cliente;";
+                            cmd.CommandText = @"SELECT c.Id, c.Nome, c.Sobrenome, ct.Tipo, ct.Id_agencia FROM Cliente AS c, Conta AS ct WHERE c.id = ct.id_cliente AND c.Id != 9;";
 
                             SqlDataReader leitor = cmd.ExecuteReader();
 
@@ -500,12 +825,12 @@ namespace Banco
                             cmd.Connection.Close();
 
                             Console.WriteLine("\n");
-                            }
                         }
                     }
                 }
             }
         }
     }
+}
 
                         
